@@ -12,4 +12,4 @@ default:
 #	$(MAKE) -C $(KERNELDIR) M=$(PWD) module_install
 
 clean:
-	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean        
+	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean    
