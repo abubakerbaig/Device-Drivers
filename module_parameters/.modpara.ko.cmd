@@ -1,0 +1,1 @@
+cmd_/home/abubakerbaig/device_drivers/module_parameters/modpara.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000  --build-id  -T ./scripts/module-common.lds -o /home/abubakerbaig/device_drivers/module_parameters/modpara.ko /home/abubakerbaig/device_drivers/module_parameters/modpara.o /home/abubakerbaig/device_drivers/module_parameters/modpara.mod.o;  true
