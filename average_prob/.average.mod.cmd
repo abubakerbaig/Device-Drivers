@@ -1,0 +1,1 @@
+cmd_/home/abubakerbaig/device_drivers/average_prob/average.mod := { echo  /home/abubakerbaig/device_drivers/average_prob/average.o; echo; } > /home/abubakerbaig/device_drivers/average_prob/average.mod

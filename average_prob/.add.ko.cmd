@@ -1,0 +1,1 @@
+cmd_/home/abubakerbaig/device_drivers/average_prob/add.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000  --build-id  -T ./scripts/module-common.lds -o /home/abubakerbaig/device_drivers/average_prob/add.ko /home/abubakerbaig/device_drivers/average_prob/add.o /home/abubakerbaig/device_drivers/average_prob/add.mod.o;  true
