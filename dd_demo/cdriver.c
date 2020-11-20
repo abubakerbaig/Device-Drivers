@@ -2,6 +2,7 @@
 #include <linux/module.h>
 #include <linux/cdev.h>
 #include <linux/fs.h>
+#include <linux/uaccess.h>
 
 
 MODULE_LICENSE("GPL");
@@ -13,14 +14,48 @@ static int sample_open(struct inode *inode, struct file *filp)  {
 }
 
 ssize_t sample_read (struct file *fops, char __user *Ubuff, size_t count, loff_t *filp)    {
+    
+    unsigned long res;
+    char Kbuff[]="Kernel Data";
     printk("\nReading file\n");
+    
+    res= copy_to_user((char *)Ubuff,(char *)Kbuff, count);
+    if(res==0)  {
+        printk("Data successfully read.\n");
+        return count;
+    }
+    else if(res > 0){
+        printk("only part of data read.\n");
+        return (count-res);
+    }
+    else {
+        printk("Error reading data.\n");
+        return EFAULT;
+    }
 
-    return 0;
 }
 
-ssize_t sample_write (struct file *fops, const char __user *Kbuff, size_t count, loff_t *filp) {
-    printk("\nWriting file\n");
-    return 0;
+ssize_t sample_write (struct file *fops, const char __user *Ubuff, size_t count, loff_t *filp) {
+    unsigned long res;
+    char Kbuff[32];
+    printk("\nWriting from file to device\n");
+    
+    res= copy_from_user((char*)Kbuff, (char*)Ubuff, count);
+
+    printk("\n Data received from user space is \"%s\" \n", Kbuff);
+
+    if(res==0)  {
+        printk("\n Writing done successfully\n");
+        return res;
+    }
+    else if(res >0) {
+        printk("\n Partially writing done\n");
+        return (count-res);
+    }
+    else{
+        printk("\nError in writing to device\n");
+        return EFAULT; 
+    }
 }
 
 static int sample_close(struct inode *inode, struct file *filp) {
