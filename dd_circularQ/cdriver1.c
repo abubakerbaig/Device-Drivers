@@ -36,7 +36,7 @@ static ssize_t sample_read (struct file *filp, char *Ubuff, size_t count, loff_t
 
     mini= min(count,(size_t)CIRC_CNT(cbuf.head,cbuf.tail,SIZE));
 
-    printk("Starting to Read data from driver....\nrequested bytes form user is %ld\n",count);
+    printk("Starting to Read data from driver....\nrequested bytes form user is %ld\nnumber of bytes kernel is allowing to read:  %d\n",count,mini);
 
     for(i=0; i<mini; i++)  {
         ret=copy_to_user(Ubuff+i,cbuf.buf+cbuf.tail,1);
@@ -53,9 +53,9 @@ static ssize_t sample_read (struct file *filp, char *Ubuff, size_t count, loff_t
 
 static ssize_t sample_write (struct file *filp, const char *Ubuff, size_t count, loff_t *offset)    {
     int i,ret,mini;
-    //mini= min(count,(size_t)CIRC_CNT(cbuf.head,cbuf.tail,SIZE));
-    printk("Starting to Write Data from driver....\nrequested bytes form user is %ld\n",count);
-    for(i=0; i<count; i++)  {
+    mini= min(count,(size_t)CIRC_SPACE(cbuf.head,cbuf.tail,SIZE));
+    printk("Starting to Write Data from driver....\nrequested bytes form user is %ld\nnumber of bytes writing is: %d",count,mini);
+    for(i=0; i<mini; i++)  {
         ret=copy_from_user(cbuf.buf+cbuf.head, Ubuff+i, 1);
         if(ret) {
             printk("failed to read byte no. %d",i);

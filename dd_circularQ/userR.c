@@ -19,11 +19,8 @@ int main (int argc, const char *argv[]) {
 
     rt=read(fd,Kbuff,32);
     
-    printf("Number of bytes read from kernel is %d\n",rt);
-    
+    printf("Number of bytes read from kernel is %d\n",rt);    
     printf("DATA READ FROM KERNEL IS \"%s\"\n", Kbuff);
-
-
 
     close(fd);
     return 0;
