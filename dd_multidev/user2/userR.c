@@ -7,7 +7,7 @@
 
 int main( int argc, const char *argv[]) {
     int fd, rt;
-    char Kbuff[16] = "";
+    char Kbuff[32] = "";
     
     printf("user aplication\n");
     fd=open("/dev/mydev1",O_RDWR);

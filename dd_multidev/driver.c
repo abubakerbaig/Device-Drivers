@@ -8,6 +8,8 @@
 #include <linux/wait.h>
 #include <linux/circ_buf.h>
 #include <linux/slab.h>
+#include <linux/delay.h>
+#include <linux/semaphore.h>
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("MIRZA");
@@ -15,11 +17,12 @@ MODULE_AUTHOR("MIRZA");
 #define NMAJOR 3
 #define NMICROS 3 
 #define DEV_NAME "dev_dri"
-#define SIZE 16
+#define SIZE 32
 
 static dev_t devnum;
 
 static struct mydevices {
+    struct semaphore _sem;
     struct cdev _cdev;
     struct circ_buf cbuff;
     wait_queue_head_t wqR,wqW;
@@ -76,9 +79,9 @@ static ssize_t sample_write(struct file *fp, const char __user *Ubuff, size_t co
     printk("Writing a file driver.\n");
 
     wait_event_interruptible(devp->wqW, CIRC_SPACE(devp->cbuff.head, devp->cbuff.tail, SIZE)>0);
-        
+    down(&devp->_sem);    
     mini= min(count, (size_t)CIRC_SPACE(devp->cbuff.head,devp->cbuff.tail,SIZE));
-
+    msleep(1000);
     for(i=0; i<mini; i++)   {
         ret= copy_from_user(devp->cbuff.buf+devp->cbuff.head, Ubuff+i,1);
         if(ret) {
@@ -89,7 +92,7 @@ static ssize_t sample_write(struct file *fp, const char __user *Ubuff, size_t co
         devp->cbuff.head = (devp->cbuff.head+1)&(SIZE-1);
     }
     wake_up(&devp->wqR);
-
+    up(&devp->_sem);
     return i;
 }
 
@@ -134,7 +137,8 @@ static int dev_init(void)   {
 
         init_waitqueue_head(&devs[i].wqR);
         init_waitqueue_head(&devs[i].wqW);
-
+        sema_init(&devs[i]._sem,1);
+        
         ret = cdev_add(&devs[i]._cdev, devnum, 1);
         if(ret) {
             printk(KERN_ALERT "\n Unable to add cdev\n");
