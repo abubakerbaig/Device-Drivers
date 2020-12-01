@@ -1,0 +1,1 @@
+cmd_/home/abubakerbaig/device_drivers/workq/sample.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000  --build-id  -T ./scripts/module-common.lds -o /home/abubakerbaig/device_drivers/workq/sample.ko /home/abubakerbaig/device_drivers/workq/sample.o /home/abubakerbaig/device_drivers/workq/sample.mod.o;  true
