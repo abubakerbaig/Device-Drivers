@@ -21,6 +21,7 @@ int main (int argc, const char *argv[]) {
     }  
     
     Ubuff = (char*)malloc(32*sizeof(char)+1);
+    
     if(!Ubuff)   {
         printf("failed to allocate memory.\n");
         close(fd);

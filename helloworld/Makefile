@@ -9,7 +9,7 @@ default:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules
 
 #install:
-#	$(MAKE) -C $(KERNELDIR) M=$(PWD) module_install
+#	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules_install
 
 clean:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) clean    

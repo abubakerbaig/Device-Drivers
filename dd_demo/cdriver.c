@@ -107,6 +107,7 @@ static int chrdev_init(void) {
 }
 
 static void chrdev_exit(void) {
+    cdev_del(&_cdev);
     unregister_chrdev_region(devnum, 1);
     printk(KERN_ALERT "\nremoving module driver..... \n");
 }
