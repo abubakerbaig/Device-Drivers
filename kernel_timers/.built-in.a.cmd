@@ -1,0 +1,1 @@
+cmd_/home/abubakerbaig/device_drivers/kernel_timers/built-in.a := rm -f /home/abubakerbaig/device_drivers/kernel_timers/built-in.a; ar cDPrST /home/abubakerbaig/device_drivers/kernel_timers/built-in.a 

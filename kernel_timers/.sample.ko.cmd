@@ -1,0 +1,1 @@
+cmd_/home/abubakerbaig/device_drivers/kernel_timers/sample.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000  --build-id  -T ./scripts/module-common.lds -o /home/abubakerbaig/device_drivers/kernel_timers/sample.ko /home/abubakerbaig/device_drivers/kernel_timers/sample.o /home/abubakerbaig/device_drivers/kernel_timers/sample.mod.o;  true

@@ -1,0 +1,1 @@
+cmd_/home/abubakerbaig/device_drivers/kernel_timers/sample.mod := { echo  /home/abubakerbaig/device_drivers/kernel_timers/sample.o; echo; } > /home/abubakerbaig/device_drivers/kernel_timers/sample.mod
