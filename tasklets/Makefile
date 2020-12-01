@@ -1,6 +1,6 @@
 obj-m := tasklets.o
 
-KD = lib/modules/$(shell uname -r)/build/
+KD = /lib/modules/$(shell uname -r)/build/
 PWD=$(shell pwd)
 
 default:
